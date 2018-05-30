@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue Component Deom</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<button-counter></button-counter>
+
+		<blog-post v-for="(post, index) in posts" :index="index" :key="post.id" :title="post.title" :content="post.content"></blog-post>
+	</div>
+</body>
+<script type="text/javascript">
+	Vue.component('button-counter', {
+		data: () => {
+			// 必须是个函数，每个实例可以维护一份被返回对象的独立的拷贝
+			return {
+				count: 0
+			}
+		},
+
+		template: '<button v-on:click="count++">You can click me {{ count }} num</button>'
+	})
+
+	Vue.component('blog-post', {
+		props: ['index', 'title', 'content'],
+		template: `<div class="blog-post">
+								<h3>{{ index }}*{{ title }}</h3>
+								<div v-html="content"></div>
+							</div>
+							`
+	})
+
+	let vueCompoent = new Vue({
+		el: '#app',
+		data: {
+			posts: [
+				{ id: '1', title: 'I miss you', content: '我们来个跟单的的ad全文' },
+				{ id: '2', title: 'I hate you', content: '我的的驱动器我请问请问' },
+				{ id: '3', title: 'I love you', content: '都去我我我确定我千千万万' }
+			]
+		}
+	})
+</script>
+</html>
